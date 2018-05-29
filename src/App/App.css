@@ -1,0 +1,33 @@
+#root {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+img[alt="logo"]{
+    width: 180px;
+    margin-top: 5px;
+}
+
+@media(max-width: 768px) {
+    img[alt="logo"]{
+        width: 150px;
+        margin-top: 7px;
+    }
+
+    h4{
+        font-size: 150%;
+    }
+}
+
+@media(max-width: 420px) {
+    img[alt="logo"]{
+        width: 100px;
+        margin-top: 14px;
+    }
+}
+      
