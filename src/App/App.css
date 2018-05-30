@@ -6,7 +6,7 @@
 
 main {
     flex: 1 0 auto;
-    border: 1px solid black;
+    padding: 20px;
 }
 
 img[alt="logo"]{
@@ -31,4 +31,48 @@ img[alt="logo"]{
         margin-top: 14px;
     }
 }
-      
+
+.flightItem, .flightList {
+    border: solid lightgray 1px;
+    margin: 0;
+    padding: 3px;
+    text-align: center;
+}
+
+.flightItem p{
+    margin: 10px;
+    font-size: 20px;
+    text-align: right;
+}
+
+p.flightNumber {
+    margin: 5px;
+    font-size: 30px;
+    text-align: center;
+    color: #DE0379;
+}
+
+.flightItem img {
+    display: block;
+    height: 50px;
+    padding: 2px;
+    border-radius: 50%;
+    border: 1px solid lightgray;
+}
+
+.logoLabel, .numberLabel, .altLabel{
+    margin: 2px;
+    font-weight: bold;
+}
+
+.logoLabel {
+    text-align: left;
+}
+
+.numberLabel {
+    text-align: center;
+}
+
+.altLabel {
+    text-align: right;
+}

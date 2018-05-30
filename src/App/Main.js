@@ -1,13 +1,32 @@
 import React, { Component } from 'react';
 
+import fetchService from "../services/fetchService"
+import Flight from "../entities/flight"
+import FlightItem from "./partials/FlightItem"
+
 class Main extends Component {
     state = {
-        lat: null,
-        lon: null,
+        flightData: [],
         error: "",
+        intervalId: null,
     }
 
     componentWillMount = () => {
+        const lat = sessionStorage.getItem("latitude");
+        const lon = sessionStorage.getItem("longitude");
+
+        if (lat == null) {
+            this.requestGeolocationAccess();
+        } else {
+            this.fetchAndSchedule(lat, lon)
+        }
+    }
+
+    componentWillUnmount = () => {
+        clearInterval(this.state.intervalId);
+    }
+
+    requestGeolocationAccess = () => {
         if("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(this.getGeolocation, this.getError, { maximumAge: 30000 });
         }
@@ -15,14 +34,30 @@ class Main extends Component {
             this.setState({ error: "We are sorry but your browser does not support geolocation." });
         }
     }
+    
+    fetchAndMapData = (lat, lon) => {
+        fetchService.getRequest(lat, lon)
+            .then(rawData => {
+                const flightData = rawData.map(flight => new Flight(flight.Id, flight.Alt, flight.Call, flight.Brng, flight.Man, flight.Mdl, flight.From, flight.To, flight.Op));
+                flightData.sort((flightA, flightB) => flightB.altitude - flightA.altitude);
+
+                this.setState({ flightData });
+            })
+    }
+
+    fetchAndSchedule = (lat, lon) => {
+        this.fetchAndMapData(lat, lon)
+        const intervalId = setInterval(()=>{ this.fetchAndMapData(lat, lon) }, 60000);
+        this.setState({ intervalId });
+    }
 
     getGeolocation = ({ coords }) => {
         const { latitude, longitude } = coords
 
-        this.setState({
-            lat: latitude,
-            lon: longitude
-        })
+        this.fetchAndSchedule(latitude, longitude)
+
+        sessionStorage.setItem("latitude", latitude)
+        sessionStorage.setItem("longitude", longitude)
     }
 
     getError = ({ code }) => {
@@ -34,9 +69,27 @@ class Main extends Component {
     }
 
     render() {
+        const { error, flightData } = this.state
+        const componentToRender = (flightData.length !== 0) ?
+            flightData.map(({ bound, flightNumber, altitude }) => <FlightItem bound={bound} flightNumber={flightNumber} altitude={altitude} key={flightNumber}/>)
+            :
+            <div></div>
+
         return (
             <main className="container">
-                {(this.state.error) && alert(this.state.error)}
+                { error && alert(error) }
+                <div className="row flightList">
+                    <div className="col s3">
+                        <p className="logoLabel">direction</p>
+                    </div>
+                    <div className="col s6">
+                        <p className="numberLabel">flight number</p>
+                    </div>
+                    <div className="col s3">
+                        <p className="altLabel">altitude(m)</p>
+                    </div>
+                </div>
+                {componentToRender}
             </main>
         );
     }

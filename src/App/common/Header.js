@@ -6,10 +6,10 @@ const Header = () =>
     <nav>
         <div className="nav-wrapper blue-grey">
             <div className="container row">
-                <div className="col sm3 s4">
+                <div className="col s4">
                     <img src={logo} alt="logo"/>
                 </div>
-                <div className="col sm6 s8">
+                <div className="col s4 center">
                     <h4>Air Traffic Radar</h4>
                 </div>
             </div>
