@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 
-import fetchService from "../services/fetchService"
-import Flight from "../entities/flight"
-import FlightItem from "./partials/FlightItem"
+import fetchService from "../../services/fetchService"
+import Flight from "../../entities/flight"
+import FlightItem from "../partials/FlightItem"
+import Loading from "../partials/Loading"
 
-class Main extends Component {
+class MainPage extends Component {
     state = {
         flightData: [],
         error: "",
@@ -36,7 +37,7 @@ class Main extends Component {
     }
     
     fetchAndMapData = (lat, lon) => {
-        fetchService.getRequest(lat, lon)
+        fetchService.getFlightList(lat, lon)
             .then(rawData => {
                 const flightData = rawData.map(flight => new Flight(flight.Id, flight.Alt, flight.Call, flight.Brng, flight.Man, flight.Mdl, flight.From, flight.To, flight.Op));
                 flightData.sort((flightA, flightB) => flightB.altitude - flightA.altitude);
@@ -62,7 +63,7 @@ class Main extends Component {
 
     getError = ({ code }) => {
         if (code === 1) {
-            this.setState({ error: "We are sorry but you did not give us access to your geolocation so we can't provide any data." });
+            this.setState({ error: "We are sorry but in order to provide you with data you need to give us access of your geolocation. After you do that, reload and try again." });
         } else {
             this.setState({ error: "We are sorry but we can't obtain your location at the moment. Please try again later." });
         }
@@ -73,7 +74,7 @@ class Main extends Component {
         const componentToRender = (flightData.length !== 0) ?
             flightData.map(({ bound, flightNumber, altitude }) => <FlightItem bound={bound} flightNumber={flightNumber} altitude={altitude} key={flightNumber}/>)
             :
-            <div></div>
+            <Loading />
 
         return (
             <main className="container">
@@ -86,7 +87,7 @@ class Main extends Component {
                         <p className="numberLabel">flight number</p>
                     </div>
                     <div className="col s3">
-                        <p className="altLabel">altitude(m)</p>
+                        <p className="altLabel">alt(m)</p>
                     </div>
                 </div>
                 {componentToRender}
@@ -95,4 +96,4 @@ class Main extends Component {
     }
 }
 
-export default Main;
+export default MainPage;

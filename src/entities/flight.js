@@ -1,5 +1,5 @@
 class Flight {
-    constructor(id, altitude, flightNumber, bound, manufacturer, model, origin, destination, logo){
+    constructor(id, altitude, flightNumber = "(hidden)", bound, manufacturer, model, origin, destination, companyName){
     this.id = id;
     this.altitude = altitude;
     this.flightNumber = flightNumber;
@@ -8,7 +8,8 @@ class Flight {
     this.model = model;
     this.origin = origin;
     this.destination = destination;
-    this.logo = `https://logo.clearbit.com/${logo.split(" ").join("").toLowerCase()}.com`
+    this.companyName = companyName;
+    this.logo = (companyName) ? `https://logo.clearbit.com/${companyName.split(" ").join("").toLowerCase()}.com` : `https://logo.clearbit.com/airplanemanager.com`;
     }
 }
 

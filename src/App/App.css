@@ -4,6 +4,11 @@
     flex-direction: column;
 }
 
+body {
+    background-image: url("../assets/img/background.jpg");
+    background-size: cover;
+}
+
 main {
     flex: 1 0 auto;
     padding: 20px;
@@ -14,32 +19,28 @@ img[alt="logo"]{
     margin-top: 5px;
 }
 
-@media(max-width: 768px) {
-    img[alt="logo"]{
-        width: 150px;
-        margin-top: 7px;
-    }
-
-    h4{
-        font-size: 150%;
-    }
-}
-
-@media(max-width: 420px) {
-    img[alt="logo"]{
-        width: 100px;
-        margin-top: 14px;
-    }
-}
 
 .flightItem, .flightList {
-    border: solid lightgray 1px;
-    margin: 0;
+    background-color: #37474F;
+    border: solid black 1px;
+    margin: 4px;
     padding: 3px;
     text-align: center;
 }
 
+.flightItem {
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.flightList {
+    color: whitesmoke;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
 .flightItem p{
+    color: whitesmoke;
     margin: 10px;
     font-size: 20px;
     text-align: right;
@@ -49,13 +50,11 @@ p.flightNumber {
     margin: 5px;
     font-size: 30px;
     text-align: center;
-    color: #DE0379;
 }
 
 .flightItem img {
     display: block;
-    height: 50px;
-    padding: 2px;
+    height: 55px;
     border-radius: 50%;
     border: 1px solid lightgray;
 }
@@ -75,4 +74,87 @@ p.flightNumber {
 
 .altLabel {
     text-align: right;
+}
+
+.singleFlightInfo {
+    background-color: #37474F;
+    border-radius: 20px;
+    padding: 20px;
+    height: 100%;
+    color: #C9EDFB;
+}
+
+.singleFlightInfo h2 {
+    color: #C9EDFB;
+    font-weight: bold;
+    font-size: 50px;
+}
+
+.singleFlightInfo img {
+    border-radius: 20px;
+}
+
+.singleFlightInfo a {
+    line-height: 200px;
+    font-size: 20px;
+}
+
+.label {
+    margin: 0;
+    margin-top: 30px;
+    font-weight: bold;
+    font-size: 20px;
+    color: gray;
+}
+
+.flightDetails {
+    margin: 0;
+    font-size: 30px;
+    color: #C9EDFB;
+}
+
+@media(max-width: 768px) {
+    img[alt="logo"]{
+        width: 150px;
+        margin-top: 7px;
+    }
+    
+    h4{
+        font-size: 150%;
+    }
+    
+    .flightItem p{
+        font-size: 15px;
+    }
+
+    p.flightNumber {
+        font-size: 20px;
+    }
+
+    .flightItem img {
+        height: 40px;
+    }
+
+    .loading img{
+        width: 100px;
+    }
+
+    .loading h3{
+        font-size: 15px;
+    }
+}
+
+@media(max-width: 420px) {
+    img[alt="logo"]{
+        width: 100px;
+        margin-top: 14px;
+    }
+
+    .flightItem p{
+        font-size: 10px;
+    }
+
+    p.flightNumber {
+        font-size: 15px;
+    }
 }

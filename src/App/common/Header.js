@@ -4,12 +4,12 @@ import logo from "./../../assets/img/logo.png";
 
 const Header = () => 
     <nav>
-        <div className="nav-wrapper blue-grey">
+        <div className="nav-wrapper blue-grey darken-4">
             <div className="container row">
                 <div className="col s4">
-                    <img src={logo} alt="logo"/>
+                    <a href="/"><img src={logo} alt="logo"/></a>
                 </div>
-                <div className="col s4 center">
+                <div className="col">
                     <h4>Air Traffic Radar</h4>
                 </div>
             </div>
