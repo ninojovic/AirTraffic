@@ -12,7 +12,7 @@ class FlightInfoPage extends Component {
         flightInfo: {}
     }
 
-    componentWillMount() {
+    componentDidMount() {
         const flightNumber = this.props.match.params;
 
         this.fetchData(flightNumber)
