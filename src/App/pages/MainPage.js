@@ -12,7 +12,7 @@ class MainPage extends Component {
         intervalId: null,
     }
 
-    componentWillMount = () => {
+    componentDidMount = () => {
         const lat = sessionStorage.getItem("latitude");
         const lon = sessionStorage.getItem("longitude");
 
